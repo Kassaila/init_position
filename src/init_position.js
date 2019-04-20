@@ -10,11 +10,20 @@ function pagePosition(setProp) {
     let scrollBottom = () => $(window).scrollTop() + screen.availHeight,
         initPosition = () => {
             if (screen.availHeight * setProp.initScrHeight > $(window).scrollTop()) {
-                $('html').addClass('page_top').removeClass('page_bottom');
+                if ($('html')[0] != $('.page_top')[0]) {
+                    $('html').addClass('page_top').removeClass('page_bottom');
+                    if (setProp.topCallback !== undefined) setProp.topCallback();
+                }
             } else if ($('html').height() - screen.availHeight * setProp.initScrHeight < scrollBottom()) {
-                $('html').addClass('page_bottom').removeClass('page_top');
+                if ($('html')[0] != $('.page_bottom')[0]) {
+                    $('html').addClass('page_bottom').removeClass('page_top');
+                    if (setProp.bottomCallback !== undefined) setProp.bottomCallback();
+                }
             } else {
-                $('html').removeClass('page_top page_bottom').removeAttr('class');
+                if ($('html').attr('class') !== undefined) {
+                    $('html').removeAttr('class');
+                    if (setProp.middleCallback !== undefined) setProp.middleCallback();
+                }
             }
         }
     // init page position on events
