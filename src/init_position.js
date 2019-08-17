@@ -2,32 +2,35 @@
  * {s} symonov.com
  * 2018
  */
-// page position
+/*
+* page position
+*/
 function pagePosition(setProp) {
-    // Default options | Настройки по умолчанию
-    setProp.initScrHeight = setProp.initScrHeight !== undefined && typeof setProp.initScrHeight === 'number' && setProp.initScrHeight >= 0.1 && setProp.initScrHeight <= 1 ? setProp.initScrHeight : 0.75;
-    // page position (top or bottom)
-    let scrollBottom = () => $(window).scrollTop() + screen.availHeight,
-        initPosition = () => {
-            if (screen.availHeight * setProp.initScrHeight > $(window).scrollTop()) {
-                if ($('html')[0] != $('.page_top')[0]) {
-                    $('html').addClass('page_top').removeClass('page_bottom');
-                    if (setProp.topCallback !== undefined) setProp.topCallback();
-                }
-            } else if ($('html').height() - screen.availHeight * setProp.initScrHeight < scrollBottom()) {
-                if ($('html')[0] != $('.page_bottom')[0]) {
-                    $('html').addClass('page_bottom').removeClass('page_top');
-                    if (setProp.bottomCallback !== undefined) setProp.bottomCallback();
-                }
-            } else {
-                if ($('html').attr('class') !== undefined) {
-                    $('html').removeAttr('class');
-                    if (setProp.middleCallback !== undefined) setProp.middleCallback();
-                }
+    // default options
+    setProp.scrTopHeight = setProp.scrTopHeight !== undefined && typeof setProp.scrTopHeight === 'number' && setProp.scrTopHeight >= 0.1 && setProp.scrTopHeight <= 1 ? setProp.scrTopHeight : 0.1;
+    setProp.scrBottomHeight = setProp.scrBottomHeight !== undefined && typeof setProp.scrBottomHeight === 'number' && setProp.scrBottomHeight >= 0.1 && setProp.scrBottomHeight <= 1 ? setProp.scrBottomHeight : 0.1;
+    let scrollBottom = () => $(window).scrollTop() + $(window).height();
+    // init page position (top, middle or bottom)
+    let initPosition = () => {
+        if ($(window).height() * setProp.scrTopHeight > $(window).scrollTop()) {
+            if (!$('html').hasClass('page_top')) {
+                $('html').addClass('page_top').removeClass('page_middle page_bottom');
+                if (setProp.topCallback) setProp.topCallback();
+            }
+        } else if ($('html').height() - $(window).height() * setProp.scrBottomHeight < scrollBottom()) {
+            if (!$('html').hasClass('page_bottom')) {
+                $('html').addClass('page_bottom').removeClass('page_top page_middle');
+                if (setProp.bottomCallback) setProp.bottomCallback();
+            }
+        } else {
+            if (!$('html').hasClass('page_middle')) {
+                $('html').addClass('page_middle').removeClass('page_top page_bottom');
+                if (setProp.middleCallback) setProp.middleCallback();
             }
         }
-    // init page position on events
-    $(document).ready(() => initPosition());
-    $(window).scroll(() => initPosition());
-    $(window).resize(() => initPosition());
+    }
+    // init on events
+    $(document).ready(initPosition);
+    $(window).scroll(initPosition);
+    $(window).resize(initPosition);
 }
