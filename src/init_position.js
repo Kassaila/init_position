@@ -1,11 +1,9 @@
 /** Developed by Dmytro Symonov
  * {s} symonov.com
  * 2018
- */
-/*
 * PAGE POSITION
-*/
-/* Example
+
+* Example
 
 import pagePosition from 'init_position';
 
