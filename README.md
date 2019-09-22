@@ -1,2 +1,3 @@
 # Initialize page position
-Initialize page position (top or bottom)
+
+Initialize page position (top, middle or bottom)
