@@ -1,6 +1,6 @@
 /** Developed by Dmytro Symonov
- * {s} symonov.com
- * 2018
+* {s} symonov.com
+* 2018
 * PAGE POSITION
 
 * Example
