@@ -8,8 +8,8 @@
 import pagePosition from 'init_position';
 
 pagePosition.init({
-    scrTopHeight: 0.5, // number; 0.1 <= range <= 1; default: 0.75
-    scrBottomHeight: 0.5, // number; 0.1 <= range <= 1; default: 0.75
+    scrTopHeight: 0.5, // number; 0.1 <= range <= 1; default: 0.1
+    scrBottomHeight: 0.5, // number; 0.1 <= range <= 1; default: 0.1
     //* callback functions - optional
     topCallback() {
         console.log('page top');
